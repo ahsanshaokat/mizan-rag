@@ -2,7 +2,7 @@ import os
 import torch
 from transformers import AutoTokenizer, AutoModel
 import torch.nn.functional as F
-from mizanvector.metrics import mizan_similarity
+from mizan_vector.metrics import mizan_similarity
 
 
 # ============================================================

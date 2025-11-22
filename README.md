@@ -65,7 +65,7 @@ pip install -r requirements.txt
 
 ### 3. Install Mizan ecosystem packages (if separate repos)
 ```bash
-pip install mizanvector mizansimilarity mizan-embedder
+pip install mizan_vector mizansimilarity mizan-embedder
 ```
 
 ### 4. Install backend models (optional)

@@ -55,7 +55,7 @@ Author: Ahsan Shaokat
 from typing import Callable, List, Tuple
 import torch
 import torch.nn.functional as F
-from mizanvector.metrics import mizan_similarity
+from mizan_vector.metrics import mizan_similarity
 
 
 # ==============================================================================

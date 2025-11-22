@@ -11,7 +11,7 @@ Requires-Python: >=3.9
 Description-Content-Type: text/markdown
 License-File: LICENSE
 Requires-Dist: torch>=1.12
-Requires-Dist: mizanvector>=0.1.0
+Requires-Dist: mizan-vector>=0.1.0
 Requires-Dist: mizan-embedder>=0.1.0
 Requires-Dist: sentence-transformers>=2.2.2
 Requires-Dist: numpy
@@ -97,7 +97,7 @@ pip install -r requirements.txt
 
 ### 3. Install Mizan ecosystem packages (if separate repos)
 ```bash
-pip install mizanvector mizansimilarity mizan-embedder
+pip install mizan-vector mizansimilarity mizan-embedder
 ```
 
 ### 4. Install backend models (optional)

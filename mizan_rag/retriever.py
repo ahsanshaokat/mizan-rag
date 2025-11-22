@@ -19,7 +19,7 @@ Author: Ahsan Shaokat
 from typing import List, Tuple, Optional
 import torch
 import torch.nn.functional as F
-from mizanvector.metrics import mizan_similarity
+from mizan_vector.metrics import mizan_similarity
 from mizan_rag.utils.cache import MizanCache
 
 
