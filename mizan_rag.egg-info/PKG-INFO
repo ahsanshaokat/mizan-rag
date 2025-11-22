@@ -1,6 +1,6 @@
 Metadata-Version: 2.4
 Name: mizan-rag
-Version: 0.1.0
+Version: 0.1.1
 Summary: A complete RAG pipeline built on Mizan Similarity, MizanEmbedder, and MizanVector.
 Author-email: Ahsan Shaokat <your-email@example.com>
 License: MIT
@@ -97,7 +97,7 @@ pip install -r requirements.txt
 
 ### 3. Install Mizan ecosystem packages (if separate repos)
 ```bash
-pip install mizan-vector mizansimilarity mizan-embedder
+pip install mizan_vector mizansimilarity mizan-embedder
 ```
 
 ### 4. Install backend models (optional)

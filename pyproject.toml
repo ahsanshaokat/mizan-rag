@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "mizan-rag"
-version = "0.1.0"
+version = "0.1.1"
 description = "A complete RAG pipeline built on Mizan Similarity, MizanEmbedder, and MizanVector."
 authors = [{ name = "Ahsan Shaokat", email = "your-email@example.com" }]
 license = { text = "MIT" }
