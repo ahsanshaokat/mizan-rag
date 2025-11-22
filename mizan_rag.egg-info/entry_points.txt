@@ -1,0 +1,2 @@
+[console_scripts]
+mizanrag = mizan_rag.cli:main

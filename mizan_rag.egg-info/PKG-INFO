@@ -1,0 +1,307 @@
+Metadata-Version: 2.4
+Name: mizan-rag
+Version: 0.1.0
+Summary: A complete RAG pipeline built on Mizan Similarity, MizanEmbedder, and MizanVector.
+Author-email: Ahsan Shaokat <your-email@example.com>
+License: MIT
+Project-URL: Homepage, https://github.com/yourusername/mizan-rag
+Project-URL: Documentation, https://github.com/yourusername/mizan-rag
+Project-URL: Source, https://github.com/yourusername/mizan-rag
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: torch>=1.12
+Requires-Dist: mizanvector>=0.1.0
+Requires-Dist: mizan-embedder>=0.1.0
+Requires-Dist: sentence-transformers>=2.2.2
+Requires-Dist: numpy
+Requires-Dist: tqdm
+Requires-Dist: requests
+Requires-Dist: transformers>=4.36
+Requires-Dist: accelerate
+Provides-Extra: llm
+Requires-Dist: openai; extra == "llm"
+Requires-Dist: groq; extra == "llm"
+Requires-Dist: xai-sdk; extra == "llm"
+Requires-Dist: openrouter>=0.5.0; extra == "llm"
+Provides-Extra: dev
+Requires-Dist: pytest; extra == "dev"
+Requires-Dist: black; extra == "dev"
+Requires-Dist: ruff; extra == "dev"
+Dynamic: license-file
+
+# Mizan RAG
+
+A production‑ready, scale‑aware Retrieval‑Augmented Generation (RAG) framework powered by the **Mizan Balance Function**, a new geometric similarity metric designed for robust vector search, balanced embeddings, and improved retrieval accuracy.
+
+Mizan RAG integrates:
+- **Mizan Similarity** (your custom metric)
+- **Mizan Embedding Models**
+- **Mizan Vector Search**
+- **Multi‑provider LLMs (OpenAI, Groq, Grok, HF, Local)**
+- **Chunking, retrieval, re-ranking, summarization**
+- **Caching, performance optimizations, and extensible architecture**
+
+This README is the **full expanded version** (A + B + C + D combined), built for:
+- Developers  
+- Researchers  
+- Students  
+- Industry teams  
+- Open‑source contributors  
+
+---
+
+# 🚀 Features
+
+### Scale-Aware Retrieval (Cosine + Mizan)
+- Replace cosine similarity with Mizan for robust retrieval.
+- Fixes chunk imbalance, scale distortion, and embedding collapse.
+
+### Full RAG Pipeline
+- Chunker  
+- Retriever  
+- Mizan Ranker (cosine/mizan/hybrid)  
+- Summarizer (multi-provider LLM)  
+- Embedding wrapper  
+- End-to-end orchestration  
+
+### Cache System
+- Embedding cache  
+- Index cache  
+- LLM response cache  
+
+### Supports Multiple LLM Providers
+- **Groq (recommended)**  
+- OpenAI  
+- Grok (xAI)  
+- OpenRouter  
+- HuggingFace  
+- Local HF models  
+
+### Extensible, production-ready folder structure
+
+---
+
+# Installation
+
+### 1. Clone repository
+```bash
+git clone https://github.com/ahsanshaokat/mizan-rag.git
+cd mizan-rag
+```
+
+### 2. Install dependencies
+```bash
+pip install -r requirements.txt
+```
+
+### 3. Install Mizan ecosystem packages (if separate repos)
+```bash
+pip install mizanvector mizansimilarity mizan-embedder
+```
+
+### 4. Install backend models (optional)
+```bash
+pip install sentence-transformers
+pip install transformers
+```
+
+---
+
+#  Quick Start
+
+### 1. Put your `.txt` files in:
+```
+/docs/
+```
+
+### 2. Run:
+```bash
+python main.py
+```
+
+### 3. Ask questions:
+```
+Ask your question (or 'exit'): What is the Mizan Balance Function?
+```
+
+---
+
+#  Mizan Balance Function (Short Overview)
+
+Mizan is a **scale-aware similarity metric** designed to fix weaknesses in cosine similarity:
+
+| Issue in Cosine | Mizan Fix |
+|-----------------|-----------|
+| Loses magnitude information | Preserves proportion & balance |
+| Weak separation in high dimensions | Stronger scaling geometry |
+| Chunk length bias | Scale normalization |
+| Embedding collapse | Balanced magnitude alignment |
+
+Mizan Similarity Formula (simplified):
+```
+miz(a, b) = (directional similarity * balance score)
+```
+
+Full math is in the Mizan research paper.
+
+---
+
+#  Architecture Overview
+
+```
+docs/                  → Your text files
+mizan_rag/
+  ├── chunker.py       → Word-based intelligent chunking
+  ├── retriever.py     → Dense retrieval (cosine/mizan)
+  ├── ranker.py        → Second-pass reranking (cosine/mizan/hybrid)
+  ├── summarizer.py    → LLM integration (Groq, OpenAI, etc.)
+  ├── utils/cache.py   → Persistent cache engine
+  ├── pipeline.py      → Full RAG orchestration
+main.py                → CLI interface
+```
+
+---
+
+#  Pipeline Stages
+
+### **1. Chunking**
+- Word-based  
+- Configurable size + overlap  
+- Clean and lightweight  
+
+### **2. Embedding**
+Uses your trained or HF model:
+```
+sentence-transformers/all-MiniLM-L6-v2  (recommended for Mizan)
+```
+
+### **3. Retriever**
+- Computes embeddings  
+- Uses cosine or Mizan similarity  
+- Ultra-fast search  
+- Cached for performance  
+
+### **4. Ranker**
+- Optional re-ranking using:
+  - cosine  
+  - mizan  
+  - hybrid(w1 * cosine + w2 * mizan)
+
+### **5. Summarizer**
+Supports:
+- Groq
+- OpenAI
+- Grok
+- OpenRouter
+- HuggingFace
+- Local models
+
+---
+
+# 🛠 Example: Using MizanRetriever
+
+```python
+from mizan_rag.retriever import MizanRetriever
+
+retriever = MizanRetriever(embed_fn, cache)
+results = retriever.search("What is Mizan?", top_k=5, metric="mizan")
+```
+
+---
+
+#  Example: Full RAG Query
+
+```python
+result = rag.query(
+    "Explain the Mizan Balance Function",
+    top_k_retrieve=8,
+    top_k_rerank=5
+)
+
+print(result["answer"])
+```
+
+---
+
+# ⚡ Recommended Embedding Models for Mizan
+
+### ⭐ Best (Highly compatible)
+- all-MiniLM-L6-v2  
+- distilbert-base-uncased  
+- paraphrase-MiniLM-L3-v2  
+
+### ⚠️ Avoid (collapsed or incompatible geometry)
+- all-mpnet-base-v2  
+- intfloat/e5-base  
+- e5-small-v2  
+- instructor-base / large  
+
+---
+
+#  Documentation Roadmap (Full 18‑Article Series)
+
+This README is part of a larger ecosystem:
+
+## SECTION 1 — Foundations
+1. Mizan Balance Function  
+2. Why Cosine Fails  
+3. Visualizing Metrics  
+4. Mathematics Behind Mizan  
+
+## SECTION 2 — Engineering
+5. Using MizanSimilarity  
+6. Building RAG With Mizan  
+7. One Change That Improves Retrieval  
+
+## SECTION 3 — Embedding Models
+8. Designing Mizan Embedding Model  
+9. Training MizanTextEncoder  
+10. MizanContrastiveLoss  
+11. Benchmarking Mizan  
+
+## SECTION 4 — Mizan Ecosystem
+12. MizanVector  
+13. MizanEmbedder  
+14. MizanModels  
+
+## SECTION 5 — Industry
+15. Enterprise RAG Failures  
+16. Search, Chatbots, Recommendations  
+17. Multi-modal Mizan  
+
+## SECTION 6 — Research
+18. Formal Mathematical Treatment of Mizan  
+
+---
+
+# 🧪 Simple Test Query
+
+Try:
+
+```
+What does the Quran say about balance?
+What is embedding magnitude?
+Who is Ahsan Shaokat?
+Explain vector projection.
+How does Mizan fix cosine issues?
+```
+
+These match the synthetic dataset perfectly.
+
+---
+
+# 📄 License
+MIT License.
+
+---
+
+# 🤝 Contributions
+PRs welcome.  
+Feature requests encouraged.  
+We are building an open ecosystem around **scale-aware AI**.
+
+---
+
+# ⭐ Star the Repository
+If this library helps you, please give it a star ✨
