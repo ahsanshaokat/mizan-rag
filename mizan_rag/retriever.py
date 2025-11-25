@@ -108,29 +108,47 @@ class MizanRetriever:
     # =====================================================================
     #                          SEARCH
     # =====================================================================
-    def search(self, query: str, top_k: int = 5, metric: str = "mizan"):
+    def search(self, query: str, top_k: int = 5, metric: str = "mizan", restrict_document=None):
+        """
+        Vector search with optional document restriction.
+
+        Args:
+            query : str
+                User query.
+            top_k : int
+                Number of results to return.
+            metric : "cosine" | "mizan"
+            restrict_document : str | None
+                If provided, only search inside this specific document ID.
+        """
+
         if not self.built:
             raise RuntimeError("Retriever index is empty — call add_documents().")
 
         if metric not in ("cosine", "mizan"):
             raise ValueError("metric must be 'cosine' or 'mizan'")
 
-        # get query embedding
+        # -------------------- Embed Query --------------------
         q_emb = self.embed_fn(query)
 
-        # 🔥 Force embedding to be tensor (fix for Mizan embedder)
+        # Force tensor
         if not isinstance(q_emb, torch.Tensor):
             q_emb = torch.tensor(q_emb, dtype=torch.float32)
 
         scored = []
 
+        # -------------------- Loop Over Chunks --------------------
         for doc_id, text, emb in self.index:
 
-            # 🔥 Always ensure embedding is a tensor
+            # Restrict search to only one document
+            if restrict_document and doc_id != restrict_document:
+                continue
+
+            # Ensure tensor
             if not isinstance(emb, torch.Tensor):
                 emb = torch.tensor(emb, dtype=q_emb.dtype, device=q_emb.device)
 
-            # compute score
+            # Compute similarity
             if metric == "cosine":
                 score = F.cosine_similarity(q_emb, emb, dim=0).item()
             else:
@@ -138,8 +156,10 @@ class MizanRetriever:
 
             scored.append((score, doc_id, text))
 
+        # -------------------- Sort & Return --------------------
         scored.sort(key=lambda x: x[0], reverse=True)
         return scored[:top_k]
+
 
 
 

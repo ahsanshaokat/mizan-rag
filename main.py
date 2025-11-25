@@ -42,13 +42,13 @@ def main():
         # ------------------------------------------------------
         # 🔵 Embeddings (HF or Custom Mizan Model)
         # ------------------------------------------------------
-        embed_model="sentence-transformers/all-MiniLM-L6-v2",
+        embed_model="BAAI/bge-large-en-v1.5",
 
         # ------------------------------------------------------
         # 🧩 Chunk Settings (Optional)
         # ------------------------------------------------------
-        chunk_size=350,
-        overlap=100,
+        chunk_size=800,
+        overlap=150,
 
         # ------------------------------------------------------
         # 🎯 Ranker Settings
@@ -101,7 +101,7 @@ def main():
             log("\nGoodbye! 👋")
             break
 
-        result = rag.query(question)
+        result = rag.query(question, top_k_retrieve=25, top_k_rerank=10)
 
         # ------------------------------------------------------
         # 🔎 Top Reranked Retrieval Results

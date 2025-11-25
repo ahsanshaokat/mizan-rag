@@ -273,17 +273,24 @@ Summary:
         joined = "\n\n".join(chunks)
 
         prompt = f"""
-You are a summarizer for the **Mizan Similarity Pipeline**.
+    You are a professional summarizer working inside the Mizan RAG Pipeline.
 
-Summarize ALL the following chunks into **one factual summary**.
-Do NOT hallucinate. Only use provided content.
+    Your job is to create a single, coherent summary of ALL the provided chunks.
 
-Limit: {max_words} words.
+    Rules:
+    - Use information from ALL chunks collectively.
+    - Merge overlapping ideas; avoid repetition.
+    - No assumptions outside the text.
+    - No hallucinations.
+    - If information is incomplete or fragmented, summarize what *is* present.
+    - Focus on factual accuracy and clarity.
 
-Chunks:
-{joined}
+    Output limit: {max_words} words.
 
-Summary:
+    Chunks:
+    {joined}
+
+    Summary:
         """
 
         return self._invoke_llm(prompt)
@@ -291,22 +298,29 @@ Summary:
     def answer_question(self, question: str, chunks: List[str]) -> str:
         joined = "\n\n".join(chunks)
 
+        print(joined)
         prompt = f"""
-Answer the question using ONLY the provided Mizan-ranked chunks.
+    You are an evidence-based reasoning engine inside the Mizan RAG Pipeline.
 
-Question:
-{question}
+    Your task is to answer the question using ONLY the information found in the provided chunks.
 
-Chunks:
-{joined}
+    Reasoning Rules:
+    1. Use *all* chunks together; combine them when they refer to related events.
+    2. If the chunks contain partial clues, produce a partial but correct answer.
+    3. Do NOT hallucinate or add facts that are not present.
+    4. If the chunks contain no relevant information, respond exactly with:
+    "There is not enough information in the retrieved chunks to answer this question."
+    5. You may infer high-level meaning from multiple scenes if evidence supports it.
+    6. Be concise, factual, and focused only on what the chunks allow.
 
-Rules:
-- No assumptions
-- No hallucinations
-- Only answer using chunk information
-- Be concise and correct
+    Question:
+    {question}
 
-Final Answer:
+    Chunks:
+    {joined}
+
+    Final Answer:
         """
 
         return self._invoke_llm(prompt)
+

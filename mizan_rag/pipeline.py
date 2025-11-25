@@ -37,6 +37,7 @@ from typing import Dict, List, Tuple, Optional, Callable
 
 from mizan_embedder import MizanTextEncoderWrapper
 from mizan_rag.chunker import MizanChunker
+from mizan_rag.router import MizanDocumentRouter
 from mizan_rag.retriever import MizanRetriever
 from mizan_rag.ranker import MizanRanker
 from mizan_rag.summarizer import MizanSummarizer
@@ -127,7 +128,7 @@ class MizanRAGPipeline:
 
         self.embedder = MizanTextEncoderWrapper(
             backbone_name=embed_model,
-            emb_dim=384,
+            emb_dim=1024,
             pooling="mean",
             normalize=True,
             cache=self.cache
@@ -140,6 +141,9 @@ class MizanRAGPipeline:
             overlap=overlap,
             method="word"
         )
+
+        # ---------------- Router (Document Level) -----------------
+        self.router = MizanDocumentRouter(embed_fn=self.embed, cache_dir=cache_path)
 
         # ---------------- Retriever -----------------
         self.retriever = MizanRetriever(
@@ -214,6 +218,12 @@ class MizanRAGPipeline:
         self.on_log("📥 Embedding & indexing...")
 
         self.retriever.add_documents(chunks_to_add)
+
+        # ------------ Document Router Indexing ------------
+        self.on_log("🔵 Indexing documents for routing...")
+        self.router.index_documents(docs_dir)
+        self.on_log("✅ Document router ready.\n")
+
         self.on_log("✅ Indexing complete.\n")
 
 
@@ -228,15 +238,49 @@ class MizanRAGPipeline:
         top_k_rerank: int = 5,
     ) -> Dict:
 
-        # ---------------- Retrieve ----------------
-        cosine_results = self.retriever.search(
-            question, top_k=top_k_retrieve, metric="cosine"
-        )
-        mizan_results = self.retriever.search(
-            question, top_k=top_k_retrieve, metric="mizan"
-        )
+        # ----------------------------------------------
+        # 1) DOCUMENT ROUTING
+        # ----------------------------------------------
+        best_doc = None
+        
+        if hasattr(self, "router") and self.router is not None:
+            routed = self.router.route(question, top_k=1)
 
-        # ---------------- Re-rank ----------------
+            # routed may be:
+            #   - "Alice_in_Wonderland.txt"
+            #   - ["Alice_in_Wonderland.txt"]
+            if isinstance(routed, list):
+                if len(routed) > 0:
+                    best_doc = routed[0]
+            else:
+                best_doc = routed
+
+        # Logging
+        self.on_log(f"📘 Routed to document: {best_doc}")
+
+        # ----------------------------------------------
+        # 2) RETRIEVAL (document-filtered or global)
+        # ----------------------------------------------
+        if best_doc:
+            cosine_results = self.retriever.search(
+                question, top_k=top_k_retrieve,
+                metric="cosine", restrict_document=best_doc
+            )
+            mizan_results = self.retriever.search(
+                question, top_k=top_k_retrieve,
+                metric="mizan", restrict_document=best_doc
+            )
+        else:
+            cosine_results = self.retriever.search(
+                question, top_k=top_k_retrieve, metric="cosine"
+            )
+            mizan_results = self.retriever.search(
+                question, top_k=top_k_retrieve, metric="mizan"
+            )
+
+        # ----------------------------------------------
+        # 3) RERANKING
+        # ----------------------------------------------
         final_ranked = self.ranker.rerank(
             question,
             retrieved=mizan_results,
@@ -244,10 +288,14 @@ class MizanRAGPipeline:
         )
         final_chunks = [text for score, doc_id, text in final_ranked]
 
-        # ---------------- Summarize ----------------
-        answer = self.summarizer.answer_question(question, final_chunks)
+        # ----------------------------------------------
+        # 4) SUMMARY / DIRECT RETURN
+        # ----------------------------------------------
+        answer = final_chunks
 
-        # ---------------- Comparison (optional) ----------------
+        # ----------------------------------------------
+        # 5) OPTIONAL COMPARISON
+        # ----------------------------------------------
         comparison = None
         if self.compare:
             comparison = []
@@ -266,3 +314,5 @@ class MizanRAGPipeline:
             "final_ranked": final_ranked,
             "comparison": comparison,
         }
+
+
