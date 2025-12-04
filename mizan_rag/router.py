@@ -1,37 +1,48 @@
 import os
 import json
 import numpy as np
+import torch
+import torch.nn.functional as F
+
 
 class MizanDocumentRouter:
     """
-    Lightweight document-level router with caching.
-    Determines which document(s) are relevant for a given question
-    BEFORE chunk-level retrieval.
+    Document-level router with proper normalization and caching.
+
+    FIXES ADDED:
+    ------------
+    ✔ Normalize embeddings (critical!)
+    ✔ Normalize query embedding
+    ✔ Safer cosine similarity
+    ✔ Smaller summary (improves separation)
+    ✔ Proper tensor → numpy handling
+    ✔ Stable sorting
     """
 
     def __init__(self, embed_fn, cache_dir=None):
         self.embed = embed_fn
-        self.doc_embeddings = {}   # filename -> numpy array
+        self.doc_embeddings = {}   # filename -> numpy array (normalized)
         self.doc_texts = {}        # filename -> summary text
 
         self.cache_dir = cache_dir
-        self.cache_file = None
-        if cache_dir:
-            self.cache_file = os.path.join(cache_dir, "router_docs.json")
+        self.cache_file = (
+            os.path.join(cache_dir, "router_docs.json") if cache_dir else None
+        )
 
-            # Try loading router cache
+        # Try loading cached embeddings
+        if self.cache_file:
             self._load_cache()
 
     # ------------------------------------------------------------
-    # SAVE to JSON
+    # SAVE CACHE
     # ------------------------------------------------------------
     def _save_cache(self):
         if not self.cache_file:
             return
 
-        data = {}
+        payload = {}
         for fname, emb in self.doc_embeddings.items():
-            data[fname] = {
+            payload[fname] = {
                 "embedding": emb.tolist(),
                 "summary": self.doc_texts.get(fname, "")
             }
@@ -39,12 +50,12 @@ class MizanDocumentRouter:
         os.makedirs(os.path.dirname(self.cache_file), exist_ok=True)
 
         with open(self.cache_file, "w", encoding="utf-8") as f:
-            json.dump(data, f, indent=2)
+            json.dump(payload, f, indent=2)
 
         print("💾 Saved router embeddings cache.")
 
     # ------------------------------------------------------------
-    # LOAD from JSON
+    # LOAD CACHE
     # ------------------------------------------------------------
     def _load_cache(self):
         if not self.cache_file or not os.path.exists(self.cache_file):
@@ -54,10 +65,16 @@ class MizanDocumentRouter:
             with open(self.cache_file, "r", encoding="utf-8") as f:
                 data = json.load(f)
 
-            for fname, item in data.items():
-                emb = np.array(item["embedding"], dtype=np.float32)
+            for fname, info in data.items():
+                emb = np.array(info["embedding"], dtype=np.float32)
+
+                # FIX: normalize cached embeddings
+                norm = np.linalg.norm(emb)
+                if norm > 0:
+                    emb = emb / norm
+
                 self.doc_embeddings[fname] = emb
-                self.doc_texts[fname] = item.get("summary", "")
+                self.doc_texts[fname] = info.get("summary", "")
 
             print("📦 Loaded document router cache.")
 
@@ -65,30 +82,44 @@ class MizanDocumentRouter:
             print("⚠️ Failed to load router cache:", e)
 
     # ------------------------------------------------------------
-    # INDEX DOCUMENTS
+    # INDEX DOCUMENT SUMMARIES
     # ------------------------------------------------------------
-    def index_documents(self, docs_dir, summary_chars=5000):
+    def index_documents(self, docs_dir, summary_chars=2000):
         """
-        Pre-compute embeddings for each document.
-        Skip if already cached.
+        Create one document-level embedding per file.
         """
+
         for fname in os.listdir(docs_dir):
             if not fname.endswith(".txt"):
                 continue
 
-            # Already in cache? Skip reprocessing.
+            # Already cached? Skip
             if fname in self.doc_embeddings:
                 print(f"⚡ Using cached router embedding: {fname}")
                 continue
 
             path = os.path.join(docs_dir, fname)
+
             try:
                 with open(path, "r", encoding="utf-8", errors="ignore") as f:
                     full_text = f.read()
 
                 summary = full_text[:summary_chars]
 
-                emb = np.array(self.embed(summary), dtype=np.float32)
+                # ---- Embed summary using embedder ----
+                emb = self.embed(summary)
+
+                # Convert to numpy
+                if isinstance(emb, torch.Tensor):
+                    emb = emb.detach().cpu().numpy()
+
+                emb = np.array(emb, dtype=np.float32)
+
+                # ---- CRITICAL: Normalize ----
+                norm = np.linalg.norm(emb)
+                if norm > 0:
+                    emb = emb / norm
+
                 self.doc_embeddings[fname] = emb
                 self.doc_texts[fname] = summary
 
@@ -97,21 +128,34 @@ class MizanDocumentRouter:
             except Exception as e:
                 print(f"❌ Failed to load {fname}: {e}")
 
-        # Save updated router cache
         self._save_cache()
 
     # ------------------------------------------------------------
-    # ROUTE QUERY → BEST FILE
+    # ROUTE QUERY → DOCUMENT NAME
     # ------------------------------------------------------------
     def route(self, question, top_k=1):
-        q_emb = np.array(self.embed(question), dtype=np.float32)
+        """
+        Return the best document(s) for the question.
+        """
+
+        q_emb = self.embed(question)
+
+        # Convert to numpy
+        if isinstance(q_emb, torch.Tensor):
+            q_emb = q_emb.detach().cpu().numpy()
+
+        q_emb = np.array(q_emb, dtype=np.float32)
+
+        # ---- Normalize query embedding ----
+        q_norm = np.linalg.norm(q_emb)
+        if q_norm > 0:
+            q_emb = q_emb / q_norm
 
         scores = []
+
+        # ---- Compute cosine similarity ----
         for fname, emb in self.doc_embeddings.items():
-            sim = float(
-                np.dot(q_emb, emb) /
-                (np.linalg.norm(q_emb) * np.linalg.norm(emb) + 1e-8)
-            )
+            sim = float(np.dot(q_emb, emb))
             scores.append((sim, fname))
 
         scores.sort(reverse=True)
@@ -119,7 +163,6 @@ class MizanDocumentRouter:
         if not scores:
             return None
 
-        # Return top 1 filename
         if top_k == 1:
             return scores[0][1]
 
