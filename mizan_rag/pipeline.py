@@ -292,7 +292,7 @@ class MizanRAGPipeline:
         # 4) SUMMARY / DIRECT RETURN
         # ----------------------------------------------
         answer = self.summarizer.answer_question(question, final_chunks)
-        answer = final_chunks
+        # answer = final_chunks
 
         # ----------------------------------------------
         # 5) OPTIONAL COMPARISON
