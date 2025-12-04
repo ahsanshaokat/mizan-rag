@@ -129,7 +129,7 @@ class MizanRAGPipeline:
         self.embedder = MizanTextEncoderWrapper(
             backbone_name=embed_model,
             emb_dim=384,
-            pooling="balanced-mean",
+            pooling="mean",
             normalize=True,
             cache=self.cache
         )
