@@ -43,7 +43,7 @@ def main():
         # ------------------------------------------------------
         # 🔵 Embeddings (HF or Custom Mizan Model)
         # ------------------------------------------------------
-        embed_model="saved/mizan_encoder_v1",
+        embed_model="BAAI/bge-small-en-v1.5",
 
         # ------------------------------------------------------
         # 🧩 Chunk Settings (Optional)
