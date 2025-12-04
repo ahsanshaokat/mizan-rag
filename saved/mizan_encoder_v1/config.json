@@ -1,0 +1,9 @@
+{
+  "backbone_name": "sentence-transformers/all-MiniLM-L6-v2",
+  "backbone": "sentence-transformers/all-MiniLM-L6-v2",
+  "emb_dim": 384,
+  "proj_dim": 384,
+  "alpha": 0.20,
+  "pooling": "balanced-mean",
+  "normalize": false
+}

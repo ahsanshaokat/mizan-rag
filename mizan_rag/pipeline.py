@@ -128,8 +128,8 @@ class MizanRAGPipeline:
 
         self.embedder = MizanTextEncoderWrapper(
             backbone_name=embed_model,
-            emb_dim=1024,
-            pooling="mean",
+            emb_dim=384,
+            pooling="balanced-mean",
             normalize=True,
             cache=self.cache
         )
@@ -291,6 +291,7 @@ class MizanRAGPipeline:
         # ----------------------------------------------
         # 4) SUMMARY / DIRECT RETURN
         # ----------------------------------------------
+        answer = self.summarizer.answer_question(question, final_chunks)
         answer = final_chunks
 
         # ----------------------------------------------

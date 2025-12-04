@@ -36,13 +36,14 @@ def main():
 
     # ==========================================================
     # Initialize Mizan RAG Pipeline (FULL CONFIG)
+    # embed_model="BAAI/bge-large-en-v1.5",
     # ==========================================================
     rag = MizanRAGPipeline(
 
         # ------------------------------------------------------
         # 🔵 Embeddings (HF or Custom Mizan Model)
         # ------------------------------------------------------
-        embed_model="BAAI/bge-large-en-v1.5",
+        embed_model="saved/mizan_encoder_v1",
 
         # ------------------------------------------------------
         # 🧩 Chunk Settings (Optional)
