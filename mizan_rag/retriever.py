@@ -1,14 +1,9 @@
 """
-Corrected MizanRetriever
-------------------------
+Corrected MizanRetriever — FINAL FORM
+-------------------------------------
 
-Fixes:
-✔ Normalize all embeddings (cached + fresh)
-✔ Normalize query embedding
-✔ Convert mizan scores to float
-✔ Stable cosine similarity
-✔ Correct sorting
-✔ Works with restrict_document
+Fix:
+✔ Return embedding tensor in search() so Ranker does not recompute embeddings.
 """
 
 from typing import List, Tuple, Optional
@@ -34,7 +29,7 @@ class MizanRetriever:
                 self.index = []
                 for doc_id, text, emb_list in cached:
                     emb = torch.tensor(emb_list, dtype=torch.float32)
-                    emb = F.normalize(emb, p=2, dim=0)  # ← FIX
+                    emb = F.normalize(emb, p=2, dim=0)
                     self.index.append((doc_id, text, emb))
 
                 self.built = True
@@ -62,7 +57,7 @@ class MizanRetriever:
                 if self.cache:
                     self.cache.store_embedding(text, emb.cpu().tolist())
 
-            # Always normalize embeddings  ← FIX
+            # Normalize always
             emb = F.normalize(emb, p=2, dim=0)
 
             self.index.append((doc_id, text, emb))
@@ -83,7 +78,7 @@ class MizanRetriever:
         if not self.built:
             raise RuntimeError("Retriever index is empty — call add_documents().")
 
-        # Embed + normalize query  ← FIX
+        # Embed + normalize query
         q_emb = self.embed_fn(query)
         if not isinstance(q_emb, torch.Tensor):
             q_emb = torch.tensor(q_emb, dtype=torch.float32)
@@ -101,9 +96,10 @@ class MizanRetriever:
             if metric == "cosine":
                 score = float(F.cosine_similarity(q_emb, emb, dim=0).item())
             else:
-                score = float(mizan_similarity(q_emb, emb))  # ← ensure python float
+                score = float(mizan_similarity(q_emb, emb))
 
-            scored.append((score, doc_id, text))
+            # RETURN embedding too  ← FIXED
+            scored.append((score, doc_id, text, emb))
 
         # ---------------- SORT (descending) ----------------
         scored.sort(key=lambda x: x[0], reverse=True)
