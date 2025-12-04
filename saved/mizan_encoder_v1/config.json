@@ -1,6 +1,6 @@
 {
-  "backbone_name": "sentence-transformers/all-MiniLM-L6-v2",
-  "backbone": "sentence-transformers/all-MiniLM-L6-v2",
+  "backbone_name": "distilbert-base-uncased",
+  "backbone": "distilbert-base-uncased",
   "emb_dim": 384,
   "proj_dim": 384,
   "alpha": 0.20,
