@@ -1,10 +1,7 @@
 {
-  "architectures": [
-    "BertModel"
-  ],
+  "architectures": ["BertModel"],
   "attention_probs_dropout_prob": 0.1,
   "backbone_name": "sentence-transformers/all-MiniLM-L6-v2",
-  "dtype": "float32",
   "gradient_checkpointing": false,
   "hidden_act": "gelu",
   "hidden_dropout_prob": 0.1,
@@ -22,6 +19,5 @@
   "proj_dim": 384,
   "transformers_version": "4.57.3",
   "type_vocab_size": 2,
-  "use_cache": true,
   "vocab_size": 30522
 }
