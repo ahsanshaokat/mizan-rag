@@ -244,7 +244,7 @@ class MizanRAGPipeline:
         best_doc = None
         
         if hasattr(self, "router") and self.router is not None:
-            routed = self.router.route(question, top_k=1)
+            routed = self.router.route(question, top_k=3)
 
             # routed may be:
             #   - "Alice_in_Wonderland.txt"
