@@ -72,7 +72,7 @@ def evaluate_rag():
     print("\n🔵 Initializing RAG Pipeline for Benchmarking...\n")
 
     rag = MizanRAGPipeline(
-        embed_model="saved/mizan_encoder_v1",
+        embed_model="saved/mizan_encoder_small_50k",
         chunk_size=800,
         overlap=150,
         ranker_metric="mizan", 

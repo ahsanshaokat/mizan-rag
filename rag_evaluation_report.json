@@ -1,87 +1,87 @@
 {
-  "router_accuracy": 0.10344827586206896,
-  "retrieval_accuracy": 0.10344827586206896,
+  "router_accuracy": 0.6896551724137931,
+  "retrieval_accuracy": 0.6896551724137931,
   "total_questions": 29,
   "details": [
     {
       "question": "Why does Alice keep changing size during her journey?",
       "expected_doc": "Alice_in_Wonderland.txt",
-      "router_doc": "Ulysses.txt",
-      "router_correct": false,
-      "top_mizan_doc": "Ulysses.txt",
-      "mizan_correct": false,
-      "mizan_top_score": 0.6056756418477223,
-      "cosine_top_score": 0.07455334067344666
+      "router_doc": "Alice_in_Wonderland.txt",
+      "router_correct": true,
+      "top_mizan_doc": "Alice_in_Wonderland.txt",
+      "mizan_correct": true,
+      "mizan_top_score": 0.7790442683130647,
+      "cosine_top_score": 0.605961799621582
     },
     {
       "question": "Who does Alice meet sitting on a mushroom while smoking a hookah?",
       "expected_doc": "Alice_in_Wonderland.txt",
-      "router_doc": "Metamorphosis.txt",
-      "router_correct": false,
-      "top_mizan_doc": "Metamorphosis.txt",
-      "mizan_correct": false,
-      "mizan_top_score": 0.6320750872489455,
-      "cosine_top_score": 0.11529777199029922
+      "router_doc": "Alice_in_Wonderland.txt",
+      "router_correct": true,
+      "top_mizan_doc": "Alice_in_Wonderland.txt",
+      "mizan_correct": true,
+      "mizan_top_score": 0.7233391594668053,
+      "cosine_top_score": 0.47831419110298157
     },
     {
       "question": "Why is Alice frustrated during the Mad Tea Party?",
       "expected_doc": "Alice_in_Wonderland.txt",
-      "router_doc": "Moby_Dick.txt",
-      "router_correct": false,
-      "top_mizan_doc": "Moby_Dick.txt",
-      "mizan_correct": false,
-      "mizan_top_score": 0.6149874445877694,
-      "cosine_top_score": 0.07853256165981293
+      "router_doc": "Alice_in_Wonderland.txt",
+      "router_correct": true,
+      "top_mizan_doc": "Alice_in_Wonderland.txt",
+      "mizan_correct": true,
+      "mizan_top_score": 0.7738574653526905,
+      "cosine_top_score": 0.6050398945808411
     },
     {
       "question": "Why does Victor Frankenstein regret creating the Creature?",
       "expected_doc": "Frankenstein.txt",
-      "router_doc": "Alice_in_Wonderland.txt",
+      "router_doc": "The_Picture_of_Dorian_Gray.txt",
       "router_correct": false,
-      "top_mizan_doc": "Alice_in_Wonderland.txt",
+      "top_mizan_doc": "The_Picture_of_Dorian_Gray.txt",
       "mizan_correct": false,
-      "mizan_top_score": 0.6075421516751079,
-      "cosine_top_score": 0.06840439140796661
+      "mizan_top_score": 0.6982909766375269,
+      "cosine_top_score": 0.39758116006851196
     },
     {
       "question": "Why does the Creature feel hatred toward Victor?",
       "expected_doc": "Frankenstein.txt",
-      "router_doc": "Alice_in_Wonderland.txt",
+      "router_doc": "The_Picture_of_Dorian_Gray.txt",
       "router_correct": false,
-      "top_mizan_doc": "Alice_in_Wonderland.txt",
+      "top_mizan_doc": "The_Picture_of_Dorian_Gray.txt",
       "mizan_correct": false,
-      "mizan_top_score": 0.5997128407662231,
-      "cosine_top_score": 0.01478514727205038
+      "mizan_top_score": 0.7143302143675556,
+      "cosine_top_score": 0.4102064371109009
     },
     {
       "question": "What demand does the Creature make to Victor?",
       "expected_doc": "Frankenstein.txt",
-      "router_doc": "Pride_and_Prejudice.txt",
+      "router_doc": "The_Picture_of_Dorian_Gray.txt",
       "router_correct": false,
-      "top_mizan_doc": "Pride_and_Prejudice.txt",
+      "top_mizan_doc": "The_Picture_of_Dorian_Gray.txt",
       "mizan_correct": false,
-      "mizan_top_score": 0.6015282271660044,
-      "cosine_top_score": 0.07150645554065704
+      "mizan_top_score": 0.686304825989398,
+      "cosine_top_score": 0.37619030475616455
     },
     {
       "question": "Why does Jonathan Harker become suspicious of Count Dracula?",
       "expected_doc": "Dracula.txt",
-      "router_doc": "Alice_in_Wonderland.txt",
-      "router_correct": false,
-      "top_mizan_doc": "Alice_in_Wonderland.txt",
-      "mizan_correct": false,
-      "mizan_top_score": 0.6271009449641995,
-      "cosine_top_score": 0.09288258105516434
+      "router_doc": "Dracula.txt",
+      "router_correct": true,
+      "top_mizan_doc": "Dracula.txt",
+      "mizan_correct": true,
+      "mizan_top_score": 0.7304156549379919,
+      "cosine_top_score": 0.4948636293411255
     },
     {
       "question": "How does Dracula travel to England?",
       "expected_doc": "Dracula.txt",
-      "router_doc": "Pride_and_Prejudice.txt",
-      "router_correct": false,
-      "top_mizan_doc": "Pride_and_Prejudice.txt",
-      "mizan_correct": false,
-      "mizan_top_score": 0.6134141085357396,
-      "cosine_top_score": 0.10145704448223114
+      "router_doc": "Dracula.txt",
+      "router_correct": true,
+      "top_mizan_doc": "Dracula.txt",
+      "mizan_correct": true,
+      "mizan_top_score": 0.730102570801773,
+      "cosine_top_score": 0.48726072907447815
     },
     {
       "question": "What method do Van Helsing and his team use to weaken Dracula\u2019s power?",
@@ -90,18 +90,18 @@
       "router_correct": true,
       "top_mizan_doc": "Dracula.txt",
       "mizan_correct": true,
-      "mizan_top_score": 0.608525782205039,
-      "cosine_top_score": 0.014805125072598457
+      "mizan_top_score": 0.7130732881963318,
+      "cosine_top_score": 0.43134596943855286
     },
     {
       "question": "Why does Elizabeth Bennet initially dislike Mr. Darcy?",
       "expected_doc": "Pride_and_Prejudice.txt",
-      "router_doc": "Moby_Dick.txt",
-      "router_correct": false,
-      "top_mizan_doc": "Moby_Dick.txt",
-      "mizan_correct": false,
-      "mizan_top_score": 0.612255308460796,
-      "cosine_top_score": 0.06880100071430206
+      "router_doc": "Pride_and_Prejudice.txt",
+      "router_correct": true,
+      "top_mizan_doc": "Pride_and_Prejudice.txt",
+      "mizan_correct": true,
+      "mizan_top_score": 0.8152708575446619,
+      "cosine_top_score": 0.6976699829101562
     },
     {
       "question": "What changes Elizabeth\u2019s opinion of Mr. Darcy?",
@@ -110,178 +110,178 @@
       "router_correct": true,
       "top_mizan_doc": "Pride_and_Prejudice.txt",
       "mizan_correct": true,
-      "mizan_top_score": 0.6050721535093335,
-      "cosine_top_score": 0.04329970106482506
+      "mizan_top_score": 0.8443502456508846,
+      "cosine_top_score": 0.7492353916168213
     },
     {
       "question": "Why does Lady Catherine visit Elizabeth?",
       "expected_doc": "Pride_and_Prejudice.txt",
-      "router_doc": "Moby_Dick.txt",
-      "router_correct": false,
-      "top_mizan_doc": "Moby_Dick.txt",
-      "mizan_correct": false,
-      "mizan_top_score": 0.6169033352414203,
-      "cosine_top_score": 0.06551621854305267
+      "router_doc": "Pride_and_Prejudice.txt",
+      "router_correct": true,
+      "top_mizan_doc": "Pride_and_Prejudice.txt",
+      "mizan_correct": true,
+      "mizan_top_score": 0.7862822876785618,
+      "cosine_top_score": 0.6189454793930054
     },
     {
       "question": "What does the portrait represent?",
       "expected_doc": "The_Picture_of_Dorian_Gray.txt",
-      "router_doc": "Moby_Dick.txt",
-      "router_correct": false,
-      "top_mizan_doc": "Moby_Dick.txt",
-      "mizan_correct": false,
-      "mizan_top_score": 0.6070241431500688,
-      "cosine_top_score": 0.08007487654685974
+      "router_doc": "The_Picture_of_Dorian_Gray.txt",
+      "router_correct": true,
+      "top_mizan_doc": "The_Picture_of_Dorian_Gray.txt",
+      "mizan_correct": true,
+      "mizan_top_score": 0.7427843445667973,
+      "cosine_top_score": 0.5400357246398926
     },
     {
       "question": "Why does Dorian break his friendship with Basil?",
       "expected_doc": "The_Picture_of_Dorian_Gray.txt",
-      "router_doc": "Alice_in_Wonderland.txt",
-      "router_correct": false,
-      "top_mizan_doc": "Alice_in_Wonderland.txt",
-      "mizan_correct": false,
-      "mizan_top_score": 0.598678058686264,
-      "cosine_top_score": -0.007673431187868118
+      "router_doc": "The_Picture_of_Dorian_Gray.txt",
+      "router_correct": true,
+      "top_mizan_doc": "The_Picture_of_Dorian_Gray.txt",
+      "mizan_correct": true,
+      "mizan_top_score": 0.7653806824030109,
+      "cosine_top_score": 0.5775461196899414
     },
     {
       "question": "Why does Dorian stab the portrait?",
       "expected_doc": "The_Picture_of_Dorian_Gray.txt",
-      "router_doc": "The_War_of_the_Worlds.txt",
-      "router_correct": false,
-      "top_mizan_doc": "The_War_of_the_Worlds.txt",
-      "mizan_correct": false,
-      "mizan_top_score": 0.5887901823474495,
-      "cosine_top_score": 0.008206358179450035
+      "router_doc": "The_Picture_of_Dorian_Gray.txt",
+      "router_correct": true,
+      "top_mizan_doc": "The_Picture_of_Dorian_Gray.txt",
+      "mizan_correct": true,
+      "mizan_top_score": 0.7546209277053787,
+      "cosine_top_score": 0.5460814237594604
     },
     {
       "question": "Who are the Eloi?",
       "expected_doc": "The_Time_Machine.txt",
-      "router_doc": "Moby_Dick.txt",
+      "router_doc": "The_Picture_of_Dorian_Gray.txt",
       "router_correct": false,
-      "top_mizan_doc": "Moby_Dick.txt",
+      "top_mizan_doc": "The_Picture_of_Dorian_Gray.txt",
       "mizan_correct": false,
-      "mizan_top_score": 0.6130551069309864,
-      "cosine_top_score": 0.07671595364809036
+      "mizan_top_score": 0.6556832079033332,
+      "cosine_top_score": 0.2959006130695343
     },
     {
       "question": "Who are the Morlocks?",
       "expected_doc": "The_Time_Machine.txt",
-      "router_doc": "Alice_in_Wonderland.txt",
+      "router_doc": "The_Picture_of_Dorian_Gray.txt",
       "router_correct": false,
-      "top_mizan_doc": "Alice_in_Wonderland.txt",
+      "top_mizan_doc": "The_Picture_of_Dorian_Gray.txt",
       "mizan_correct": false,
-      "mizan_top_score": 0.6155597630394267,
-      "cosine_top_score": 0.05731239914894104
+      "mizan_top_score": 0.661279218653521,
+      "cosine_top_score": 0.2820386290550232
     },
     {
       "question": "Why does the Time Traveller fear the Morlocks?",
       "expected_doc": "The_Time_Machine.txt",
-      "router_doc": "Alice_in_Wonderland.txt",
-      "router_correct": false,
-      "top_mizan_doc": "Alice_in_Wonderland.txt",
-      "mizan_correct": false,
-      "mizan_top_score": 0.6165397050914747,
-      "cosine_top_score": 0.08229187875986099
+      "router_doc": "The_Time_Machine.txt",
+      "router_correct": true,
+      "top_mizan_doc": "The_Time_Machine.txt",
+      "mizan_correct": true,
+      "mizan_top_score": 0.7232914931797083,
+      "cosine_top_score": 0.46613866090774536
     },
     {
       "question": "Why are the Martians defeated despite their superior technology?",
       "expected_doc": "The_War_of_the_Worlds.txt",
-      "router_doc": "Dracula.txt",
-      "router_correct": false,
-      "top_mizan_doc": "Dracula.txt",
-      "mizan_correct": false,
-      "mizan_top_score": 0.6359574969585979,
-      "cosine_top_score": 0.08264005184173584
+      "router_doc": "The_War_of_the_Worlds.txt",
+      "router_correct": true,
+      "top_mizan_doc": "The_War_of_the_Worlds.txt",
+      "mizan_correct": true,
+      "mizan_top_score": 0.7464857165578025,
+      "cosine_top_score": 0.5240172743797302
     },
     {
       "question": "What are the Martian tripods used for?",
       "expected_doc": "The_War_of_the_Worlds.txt",
-      "router_doc": "Pride_and_Prejudice.txt",
-      "router_correct": false,
-      "top_mizan_doc": "Pride_and_Prejudice.txt",
-      "mizan_correct": false,
-      "mizan_top_score": 0.6129568314120333,
-      "cosine_top_score": 0.0646839290857315
+      "router_doc": "The_War_of_the_Worlds.txt",
+      "router_correct": true,
+      "top_mizan_doc": "The_War_of_the_Worlds.txt",
+      "mizan_correct": true,
+      "mizan_top_score": 0.7154338094012991,
+      "cosine_top_score": 0.45844581723213196
     },
     {
       "question": "Why is Captain Ahab obsessed with Moby Dick?",
       "expected_doc": "Moby_Dick.txt",
-      "router_doc": "The_War_of_the_Worlds.txt",
-      "router_correct": false,
-      "top_mizan_doc": "The_War_of_the_Worlds.txt",
-      "mizan_correct": false,
-      "mizan_top_score": 0.6148828815731837,
-      "cosine_top_score": 0.11843647807836533
+      "router_doc": "Moby_Dick.txt",
+      "router_correct": true,
+      "top_mizan_doc": "Moby_Dick.txt",
+      "mizan_correct": true,
+      "mizan_top_score": 0.7058326325165416,
+      "cosine_top_score": 0.42767134308815
     },
     {
       "question": "What is Ishmael\u2019s purpose for joining the whaling voyage?",
+      "expected_doc": "Moby_Dick.txt",
+      "router_doc": "Moby_Dick.txt",
+      "router_correct": true,
+      "top_mizan_doc": "Moby_Dick.txt",
+      "mizan_correct": true,
+      "mizan_top_score": 0.7531562344887226,
+      "cosine_top_score": 0.5732597708702087
+    },
+    {
+      "question": "Why is Starbuck opposed to Ahab\u2019s mission?",
       "expected_doc": "Moby_Dick.txt",
       "router_doc": "Alice_in_Wonderland.txt",
       "router_correct": false,
       "top_mizan_doc": "Alice_in_Wonderland.txt",
       "mizan_correct": false,
-      "mizan_top_score": 0.6329339431645218,
-      "cosine_top_score": 0.12131452560424805
-    },
-    {
-      "question": "Why is Starbuck opposed to Ahab\u2019s mission?",
-      "expected_doc": "Moby_Dick.txt",
-      "router_doc": "The_War_of_the_Worlds.txt",
-      "router_correct": false,
-      "top_mizan_doc": "The_War_of_the_Worlds.txt",
-      "mizan_correct": false,
-      "mizan_top_score": 0.6281496184414304,
-      "cosine_top_score": 0.13060632348060608
+      "mizan_top_score": 0.637782408720305,
+      "cosine_top_score": 0.2097821682691574
     },
     {
       "question": "What literary technique dominates Ulysses?",
       "expected_doc": "Ulysses.txt",
-      "router_doc": "Moby_Dick.txt",
+      "router_doc": "The_Picture_of_Dorian_Gray.txt",
       "router_correct": false,
-      "top_mizan_doc": "Moby_Dick.txt",
+      "top_mizan_doc": "The_Picture_of_Dorian_Gray.txt",
       "mizan_correct": false,
-      "mizan_top_score": 0.6196853175998052,
-      "cosine_top_score": 0.09684297442436218
+      "mizan_top_score": 0.7038456068363173,
+      "cosine_top_score": 0.4236771762371063
     },
     {
       "question": "Who is the main character the novel follows during one day in Dublin?",
       "expected_doc": "Ulysses.txt",
-      "router_doc": "Moby_Dick.txt",
-      "router_correct": false,
-      "top_mizan_doc": "Moby_Dick.txt",
-      "mizan_correct": false,
-      "mizan_top_score": 0.6112984661419814,
-      "cosine_top_score": 0.09373798221349716
-    },
-    {
-      "question": "What is the central theme of the novel?",
-      "expected_doc": "Ulysses.txt",
-      "router_doc": "The_War_of_the_Worlds.txt",
-      "router_correct": false,
-      "top_mizan_doc": "The_War_of_the_Worlds.txt",
-      "mizan_correct": false,
-      "mizan_top_score": 0.5988646294036655,
-      "cosine_top_score": 0.06332771480083466
-    },
-    {
-      "question": "What happens to Gregor Samsa at the beginning of the story?",
-      "expected_doc": "Metamorphosis.txt",
-      "router_doc": "The_War_of_the_Worlds.txt",
-      "router_correct": false,
-      "top_mizan_doc": "The_War_of_the_Worlds.txt",
-      "mizan_correct": false,
-      "mizan_top_score": 0.5922864896511988,
-      "cosine_top_score": 5.0825998187065125e-05
-    },
-    {
-      "question": "Why does Gregor fear revealing himself to his family?",
-      "expected_doc": "Metamorphosis.txt",
       "router_doc": "Dracula.txt",
       "router_correct": false,
       "top_mizan_doc": "Dracula.txt",
       "mizan_correct": false,
-      "mizan_top_score": 0.6064706598238268,
-      "cosine_top_score": -0.006341420114040375
+      "mizan_top_score": 0.7232707627247783,
+      "cosine_top_score": 0.476662814617157
+    },
+    {
+      "question": "What is the central theme of the novel?",
+      "expected_doc": "Ulysses.txt",
+      "router_doc": "The_Picture_of_Dorian_Gray.txt",
+      "router_correct": false,
+      "top_mizan_doc": "The_Picture_of_Dorian_Gray.txt",
+      "mizan_correct": false,
+      "mizan_top_score": 0.7278448429653405,
+      "cosine_top_score": 0.4905652105808258
+    },
+    {
+      "question": "What happens to Gregor Samsa at the beginning of the story?",
+      "expected_doc": "Metamorphosis.txt",
+      "router_doc": "Metamorphosis.txt",
+      "router_correct": true,
+      "top_mizan_doc": "Metamorphosis.txt",
+      "mizan_correct": true,
+      "mizan_top_score": 0.7752956252986347,
+      "cosine_top_score": 0.6082785129547119
+    },
+    {
+      "question": "Why does Gregor fear revealing himself to his family?",
+      "expected_doc": "Metamorphosis.txt",
+      "router_doc": "Metamorphosis.txt",
+      "router_correct": true,
+      "top_mizan_doc": "Metamorphosis.txt",
+      "mizan_correct": true,
+      "mizan_top_score": 0.7947926270854613,
+      "cosine_top_score": 0.6496877074241638
     },
     {
       "question": "Why does Gregor\u2019s family become resentful of him?",
@@ -290,8 +290,8 @@
       "router_correct": true,
       "top_mizan_doc": "Metamorphosis.txt",
       "mizan_correct": true,
-      "mizan_top_score": 0.831214573766587,
-      "cosine_top_score": 0.7086747884750366
+      "mizan_top_score": 0.8352130596145547,
+      "cosine_top_score": 0.7392724752426147
     }
   ]
 }
