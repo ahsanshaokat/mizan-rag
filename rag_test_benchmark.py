@@ -79,8 +79,16 @@ def evaluate_rag():
         compare=True,
         enable_cache=True,
         cache_path=".mizan_cache",
-        llm_provider=None,          # Disable LLM for speed
-        summarizer_model=None,
+        # ------------------------------------------------------
+        # 🤖 LLM Provider + Model
+        # ------------------------------------------------------
+        llm_provider="groq",                       # CHANGE THIS
+        summarizer_model="llama-3.3-70b-versatile",  # Groq model
+
+        # ------------------------------------------------------
+        # 🔐 API Key (Required for OpenAI/Groq/Grok/OpenRouter)
+        # ------------------------------------------------------
+        api_key=os.getenv("API_KEY"),
         on_log=lambda x: None
     )
 
