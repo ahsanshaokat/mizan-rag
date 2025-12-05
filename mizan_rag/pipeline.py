@@ -143,7 +143,12 @@ class MizanRAGPipeline:
         )
 
         # ---------------- Router (Document Level) -----------------
-        self.router = MizanDocumentRouter(embed_fn=self.embed, cache_dir=cache_path)
+        self.router = MizanDocumentRouter(
+            embed_fn=self.embed, 
+            cache_dir=cache_path,
+            chunks_per_doc=5,     # NEW
+            chunk_chars=4500      # NEW
+            )
 
         # ---------------- Retriever -----------------
         self.retriever = MizanRetriever(
